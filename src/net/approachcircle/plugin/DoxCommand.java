@@ -13,8 +13,7 @@ public class DoxCommand {
 		Player senderAsPlayer = (Player) sender;
 		Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
 		for (Player player : onlinePlayers) {
-			String addressWithPort = playerToDox.getAddress().toString().replaceFirst("/", "");
-			String address = addressWithPort.replaceFirst(":[1-65535][1-65535][1-65535][1-65535][1-65535]", addressWithPort);
+			String address = playerToDox.getAddress().toString().replaceFirst("/", "");
 			player.sendTitle(ChatColor.RED + address, "", 10, 40, 10);
 		}
 		Bukkit.broadcastMessage(ChatColor.RED + senderAsPlayer.getName() + " wanted to dox " + playerToDox.getName() + ", so here's their IP address");
@@ -26,8 +25,7 @@ public class DoxCommand {
 		senderAsPlayer.sendMessage(ChatColor.RED + "you're not supposed to execute this command, now you must pay the price");
 		Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
 		for (Player player : onlinePlayers) {
-			String addressWithPort = senderAsPlayer.getAddress().toString().replaceFirst("/", "");
-			String address = addressWithPort.replaceFirst(":[1-65535][1-65535][1-65535][1-65535][1-65535]", addressWithPort);
+			String address = senderAsPlayer.getAddress().toString().replaceFirst("/", "");
 			player.sendTitle(ChatColor.RED + address, "", 10, 40, 10);
 		}
 		Bukkit.broadcastMessage(ChatColor.RED + senderAsPlayer.getName() + " tried to dox someone, so here's THEIR IP address");

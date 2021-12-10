@@ -1,0 +1,8 @@
+name: ServerPlugin
+main: net.approachcircle.plugin.ServerPlugin
+version: 1.0
+api-version: 1.17
+author: approachcircle
+prefix: ServerPlugin
+commands: 
+   dox: 

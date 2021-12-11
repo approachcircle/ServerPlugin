@@ -16,19 +16,19 @@ public class DoxCommand {
 			String address = playerToDox.getAddress().toString().replaceFirst("/", "");
 			player.sendTitle(ChatColor.RED + address, "", 10, 40, 10);
 		}
-		Bukkit.broadcastMessage(ChatColor.RED + senderAsPlayer.getName() + " wanted to dox " + playerToDox.getName() + ", so here's their IP address");
+		Bukkit.broadcastMessage(ChatColor.RED + "[ServerPlugin] " + senderAsPlayer.getName() + " wanted to dox " + playerToDox.getName() + ", so here's " + playerToDox.getName() + "'s IP address");
 		return true;
 	}
 	
 	public boolean DoxFailed(CommandSender sender, String[] args) {
 		Player senderAsPlayer = (Player) sender;
-		senderAsPlayer.sendMessage(ChatColor.RED + "you're not supposed to execute this command, now you must pay the price");
+		senderAsPlayer.sendMessage(ChatColor.RED + "[ServerPlugin] you're not supposed to execute this command, now you must pay the price");
 		Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
 		for (Player player : onlinePlayers) {
 			String address = senderAsPlayer.getAddress().toString().replaceFirst("/", "");
 			player.sendTitle(ChatColor.RED + address, "", 10, 40, 10);
 		}
-		Bukkit.broadcastMessage(ChatColor.RED + senderAsPlayer.getName() + " tried to dox someone, so here's THEIR IP address");
+		Bukkit.broadcastMessage(ChatColor.RED + "[ServerPlugin] " + senderAsPlayer.getName() + " tried to dox someone, so here's " + senderAsPlayer.getName() + "'s IP address");
 		return true;
 	}
 }

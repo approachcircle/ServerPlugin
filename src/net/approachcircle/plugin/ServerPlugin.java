@@ -12,6 +12,7 @@ public class ServerPlugin extends JavaPlugin {
 	
 	PlayerDeathListener playerDeathListener = new PlayerDeathListener();
 	EntityPickupItemListener EPIL = new EntityPickupItemListener();
+	EntityDeathListener entityDeathListener = new EntityDeathListener();
 	DoxCommand dox = new DoxCommand();
 	
 	public Logger logger = getLogger();
@@ -20,6 +21,7 @@ public class ServerPlugin extends JavaPlugin {
 		logger.info("plugin made by approachcircle. contact: <osc-mcd@protonmail.com>");
 		PluginManager pluginManager = getServer().getPluginManager();
 		pluginManager.registerEvents(playerDeathListener, this);
+		pluginManager.registerEvents(entityDeathListener, this);
 		// pluginManager.registerEvents(EPIL, this);
 		// ^^^^ has been deregistered because it is too unstable
 	}

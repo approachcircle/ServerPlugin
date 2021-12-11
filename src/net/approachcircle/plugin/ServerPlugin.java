@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerPlugin extends JavaPlugin {
 	
-	DeathListener deathListener = new DeathListener();
+	PlayerDeathListener playerDeathListener = new PlayerDeathListener();
 	EntityPickupItemListener EPIL = new EntityPickupItemListener();
 	DoxCommand dox = new DoxCommand();
 	
@@ -19,7 +19,7 @@ public class ServerPlugin extends JavaPlugin {
 	public void onEnable() {
 		logger.info("plugin made by approachcircle. contact: <osc-mcd@protonmail.com>");
 		PluginManager pluginManager = getServer().getPluginManager();
-		pluginManager.registerEvents(deathListener, this);
+		pluginManager.registerEvents(playerDeathListener, this);
 		// pluginManager.registerEvents(EPIL, this);
 		// ^^^^ has been deregistered because it is too unstable
 	}

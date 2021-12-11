@@ -7,11 +7,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class PlayerDeathListener implements Listener {
 	
 	DeathMessages deathMessages = new DeathMessages();
-	VillagerDetector villagerDetector = new VillagerDetector();
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		deathMessages.displayMessage(event);
-		villagerDetector.checkEntityType(event);
 	}
 }

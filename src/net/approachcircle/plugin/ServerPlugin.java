@@ -13,6 +13,7 @@ public class ServerPlugin extends JavaPlugin {
 	PlayerDeathListener playerDeathListener = new PlayerDeathListener();
 	EntityPickupItemListener EPIL = new EntityPickupItemListener();
 	EntityDeathListener entityDeathListener = new EntityDeathListener();
+	PlayerJoinListener playerJoinListener = new PlayerJoinListener();
 	DoxCommand dox = new DoxCommand();
 	
 	public Logger logger = getLogger();
@@ -22,6 +23,7 @@ public class ServerPlugin extends JavaPlugin {
 		PluginManager pluginManager = getServer().getPluginManager();
 		pluginManager.registerEvents(playerDeathListener, this);
 		pluginManager.registerEvents(entityDeathListener, this);
+		pluginManager.registerEvents(playerJoinListener, this);
 		// pluginManager.registerEvents(EPIL, this);
 		// ^^^^ has been deregistered because it is too unstable
 	}

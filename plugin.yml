@@ -5,4 +5,5 @@ api-version: 1.17
 author: approachcircle
 prefix: ServerPlugin
 commands: 
-   dox: 
+   dox:
+depend: [ProtocolLib]

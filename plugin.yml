@@ -5,5 +5,9 @@ api-version: 1.17
 author: approachcircle
 prefix: ServerPlugin
 commands: 
-   dox:
-depend: [ProtocolLib]
+   die: 
+   spawnon: 
+   tpa: 
+   firework: 
+   reports: 
+   

@@ -7,6 +7,5 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/spigot-api-1.17.1-R0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/ProtocolLib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,12 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 public class VillagerDetector {
-  public void checkEntityType(EntityDeathEvent event) {
+  public static void checkEntityType(EntityDeathEvent event) {
     if (event.getEntityType() == EntityType.VILLAGER)
       villagerHasDied(event); 
   }
   
-  private void villagerHasDied(EntityDeathEvent event) {
+  private static void villagerHasDied(EntityDeathEvent event) {
     LivingEntity villagerEntity = event.getEntity();
     Location villagerLocation = villagerEntity.getLocation();
     Player villagerKiller = villagerEntity.getKiller();
@@ -28,19 +28,19 @@ public class VillagerDetector {
     } 
   }
   
-  private void announceDeath(Player villagerKiller, Location villagerLocation) {
+  private static void announceDeath(Player villagerKiller, Location villagerLocation) {
     String villagerx = Integer.valueOf((int)villagerLocation.getX()).toString();
     String villagery = Integer.valueOf((int)villagerLocation.getY()).toString();
     String villagerz = Integer.valueOf((int)villagerLocation.getZ()).toString();
-    String message = ChatColor.YELLOW + "[ServerPlugin] a villager at " + villagerx + " " + villagery + " " + villagerz + " was killed by " + villagerKiller.getName();
+    String message = ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " was killed by " + villagerKiller.getName();
     Bukkit.broadcastMessage(message);
   }
   
-  private void announceDeath(Location villagerLocation) {
+  private static void announceDeath(Location villagerLocation) {
     String villagerx = Integer.valueOf((int)villagerLocation.getX()).toString();
     String villagery = Integer.valueOf((int)villagerLocation.getY()).toString();
     String villagerz = Integer.valueOf((int)villagerLocation.getZ()).toString();
-    String message = ChatColor.YELLOW + "[ServerPlugin] a villager at " + villagerx + " " + villagery + " " + villagerz + " has died";
+    String message = ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " has died";
     Bukkit.broadcastMessage(message);
   }
 }

@@ -5,9 +5,14 @@ api-version: 1.17
 author: approachcircle
 prefix: ServerPlugin
 commands: 
-   die: a command to kill yourself (uses syntax of <command>)
-   spawnon: a command that allows you to spawn any entity on any player using the syntax of (<command> {user} {entity})
-   tpa: a command that allows you to request to teleport to another player with a timeout of 10 seconds (<command> {user})
-   firework: a command that gives you 32 fireworks with a 5 minute cooldown (<command>)
-   reports: a command that displays reports on the server since a restart/when it was last cleared. you can also send the reports to another user or reset the reports. (<command> [user|reset])
+   die:
+      description: a command to kill yourself (uses syntax of <command>)
+   spawnon:
+      description: a command that allows you to spawn any entity on any player using the syntax of (<command> {user} {entity})
+   tpa:
+      description: a command that allows you to request to teleport to another player with a timeout of 10 seconds (<command> {user})
+   firework:
+      description: a command that gives you 32 fireworks with a 5 minute cooldown (<command>)
+   reports:
+      description: a command that displays reports on the server since a restart/when it was last cleared. you can also send the reports to another user or reset the reports. (<command> [user|reset])
    

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class MainListener implements Listener {
@@ -18,9 +18,9 @@ public class MainListener implements Listener {
 	public void onEntityDeath(EntityDeathEvent event) {
 		VillagerDetector.checkEntityType(event);
 	}
-	  
+	
 	@EventHandler
-	public void onPlayerLogin(PlayerLoginEvent event) {
+	public void onPlayerLogin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		player.sendMessage(ChatColor.LIGHT_PURPLE + "welcome back " + player.getName());
 		if (player.isOp()) {

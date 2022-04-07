@@ -22,9 +22,10 @@ public class ReportsCommand {
 		printReports(sender);
 	}
 	
-	public static void resetReports(String time) {
+	public static void resetReports(String time, CommandSender sender) {
 		playerActionList.clear();
 		playerActionList.add(ChatColor.YELLOW + "reports reset at " + time + "\n");
+		sender.sendMessage(ChatColor.GREEN + "okay, reports have been reset");
 	}
 	
 	public static void playerJoined(Player player, String time) {

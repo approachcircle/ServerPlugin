@@ -56,7 +56,7 @@ public class ServerPlugin extends JavaPlugin {
 					String targetName = args[0];
 					if (targetName.equalsIgnoreCase("reset")) {
 						LocalTime time = LocalTime.now();
-						ReportsCommand.resetReports(time.format(dtf));
+						ReportsCommand.resetReports(time.format(dtf), sender);
 						return true;
 					}
 					Player target = Bukkit.getPlayer(targetName);

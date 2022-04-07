@@ -3,6 +3,7 @@ package net.approachcircle.plugin;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +22,10 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
+		player.sendMessage(ChatColor.LIGHT_PURPLE + "welcome back " + player.getName());
+		if (player.isOp()) {
+			player.sendMessage(ChatColor.LIGHT_PURPLE + "to view server reports, type /reports");
+		}
 		LocalTime time = LocalTime.now();
 		ReportsCommand.playerJoined(player, dtf.format(time));
 	}

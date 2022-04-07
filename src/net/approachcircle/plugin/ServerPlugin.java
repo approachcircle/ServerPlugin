@@ -30,27 +30,29 @@ public class ServerPlugin extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		Player player = (Player) sender;
 		String noPerms = "sorry, you do not have the permission to run this command";
 		if (label.equalsIgnoreCase("die")) {
+			Player player = (Player) sender;
 			DieCommand.suicide(player);
 			return true;
 		} else if (label.equalsIgnoreCase("spawnon")) {
-			if (!player.isOp()) {
-				player.sendMessage(noPerms);
+			if (!sender.isOp()) {
+				sender.sendMessage(noPerms);
 			} else {
 				SpawnOnCommand.spawnOn(sender, args[1], args[0]);
 			}
 			return true;
 		} else if (label.equalsIgnoreCase("tpa")) {
+			Player player = (Player) sender;
 			TeleportAskCommand.requestTeleport(player, args[0]);
 			return true;
 		} else if (label.equalsIgnoreCase("firework")) {
+			Player player = (Player) sender;
 			FireworkCommand.giveFireworks(player);
 			return true;
 		} else if (label.equalsIgnoreCase("reports")) {
-			if (!player.isOp()) {
-				player.sendMessage(noPerms);
+			if (!sender.isOp()) {
+				sender.sendMessage(noPerms);
 			} else {
 				if (args.length > 0) {
 					String targetName = args[0];
@@ -63,6 +65,7 @@ public class ServerPlugin extends JavaPlugin {
 					ReportsCommand.sendReports(sender, target);
 					return true;
 				} else {
+					Player player = (Player) sender;
 					ReportsCommand.showReports(player);
 					return true;
 				}

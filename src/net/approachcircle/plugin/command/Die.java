@@ -1,8 +1,8 @@
-package net.approachcircle.plugin;
+package net.approachcircle.plugin.command;
 
 import org.bukkit.entity.Player;
 
-public class DieCommand {
+public class Die {
 	public static void suicide(Player player) {
 		player.setHealth(0);
 	}

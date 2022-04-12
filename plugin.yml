@@ -4,15 +4,23 @@ version: 2.0
 api-version: 1.17
 author: approachcircle
 prefix: ServerPlugin
+
 commands: 
    die:
-      description: a command to kill yourself (uses syntax of <command>)
+      description: kills you (uses syntax of <command>)
    spawnon:
-      description: a command that allows you to spawn any entity on any player using the syntax of (<command> {user} {entity})
+      description: allows you to spawn any entity on any player using the syntax of (<command> {user} {entity})
    tpa:
-      description: a command that allows you to request to teleport to another player with a timeout of 10 seconds (<command> {user})
+      description: allows you to request to teleport to another player with a timeout of 10 seconds (<command> {user})
    firework:
-      description: a command that gives you 32 fireworks with a 5 minute cooldown (<command>)
+      description: gives you 32 fireworks with a 5 minute cooldown (<command>)
    reports:
-      description: a command that displays reports on the server since a restart/when it was last cleared. you can also send the reports to another user or reset the reports. (<command> [user|reset])
-   
+      description: displays reports on the server since a restart/when it was last cleared. you can also send the reports to another user or reset the reports. (<command> [user|reset])
+   warpto:
+      description: allows you to warp between custom dimensions (<command> {world})
+   send:
+      description: sends players to different dimensions (<command> {player} {world})
+   maintenance:
+      description: toggles the server's maintenance mode
+   mock:
+      description: allows you to send a message appearing to come from another player (<command> {player} {message})

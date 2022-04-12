@@ -1,4 +1,4 @@
-package net.approachcircle.plugin;
+package net.approachcircle.plugin.command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
-public class FireworkCommand {
+public class Firework {
 	private static List<Player> gotFireworks = new ArrayList<Player>();
 	private static Plugin plugin = Bukkit.getPluginManager().getPlugin("ServerPlugin");
 	private static Logger logger = plugin.getLogger();

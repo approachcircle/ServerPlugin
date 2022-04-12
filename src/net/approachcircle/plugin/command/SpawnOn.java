@@ -1,4 +1,4 @@
-package net.approachcircle.plugin;
+package net.approachcircle.plugin.command;
 
 import java.util.logging.Logger;
 
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.entity.EntityType;
 
-public class SpawnOnCommand {
+public class SpawnOn {
 	private static Plugin plugin = Bukkit.getPluginManager().getPlugin("ServerPlugin");
 	private static Logger logger = plugin.getLogger();
 	

@@ -11,7 +11,7 @@ commands:
    spawnon:
       description: allows you to spawn any entity on any player using the syntax of (<command> {user} {entity})
    tpa:
-      description: allows you to request to teleport to another player with a timeout of 10 seconds (<command> {user})
+      description: allows you to request to teleport to another player with a timeout of 15 seconds (<command> {user})
    firework:
       description: gives you 32 fireworks with a 5 minute cooldown (<command>)
    reports:

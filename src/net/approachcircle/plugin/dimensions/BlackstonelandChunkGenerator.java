@@ -8,7 +8,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import org.bukkit.util.noise.SimplexOctaveGenerator;
 
-public class SpongelandChunkGenerator extends ChunkGenerator {
+public class BlackstonelandChunkGenerator extends ChunkGenerator {
 	@Override
 	public boolean shouldGenerateNoise() {
 		return false;
@@ -47,7 +47,7 @@ public class SpongelandChunkGenerator extends ChunkGenerator {
 	@Override
 	public void generateSurface(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
 		SimplexOctaveGenerator generator = new SimplexOctaveGenerator(new Random(worldInfo.getSeed()), 6);
-		generator.setScale(0.005D);
+		generator.setScale(0.009D);
 	
 		Integer worldX = chunkX * 16;
 		Integer worldZ = chunkZ * 16;
@@ -61,7 +61,7 @@ public class SpongelandChunkGenerator extends ChunkGenerator {
 					height = chunkData.getMaxHeight();
 				}
 				for (Integer y = chunkData.getMinHeight(); y < height; y++) {
-					chunkData.setBlock(x, y, z, Material.SPONGE);
+					chunkData.setBlock(x, y, z, Material.CHISELED_POLISHED_BLACKSTONE);
 				}
 			}
 		}

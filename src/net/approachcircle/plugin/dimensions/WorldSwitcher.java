@@ -2,6 +2,8 @@ package net.approachcircle.plugin.dimensions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,9 +11,12 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import net.approachcircle.plugin.PluginLogger;
+
 public class WorldSwitcher {
 	public static Boolean isDisabled = false;
 	public static List<Dimension> faultyDimensions = new ArrayList<Dimension>();
+	private static Logger logger = PluginLogger.getPluginLogger();
 	
 	public static void switchTo(String worldName, Player target, CommandSender sender, Boolean usingSend) {
 		if (isDisabled) {
@@ -48,7 +53,19 @@ public class WorldSwitcher {
 		} else {
 			target.sendMessage(ChatColor.GREEN + "sending you to " + worldName + "...");
 		}
-		target.teleport(world.getSpawnLocation());
+		try {
+			target.teleport(world.getSpawnLocation());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "warp to " + worldName + " failed", e);
+			if (usingSend) {
+				sender.sendMessage(ChatColor.RED + "failed to send " + target.getName() + " to " + worldName);
+			} else {
+				sender.sendMessage(ChatColor.RED + "failed to warp you to " + worldName);
+			}
+			if (sender.isOp()) {
+				sender.sendMessage(ChatColor.YELLOW + "if possible, check the console for exception details");
+			}
+		}
 		if (usingSend) {
 			sender.sendMessage(ChatColor.GREEN + "sent " + target.getName() + " to " + worldName);
 		}
@@ -57,12 +74,20 @@ public class WorldSwitcher {
 	
 	public static void warnFaultyDimensions(Player target) {
 		if (isDisabled) {
-			target.sendMessage(ChatColor.RED + "dimension warping is completely disabled right now due to "
-					+ "the following faulty dimensions: ");
-			Integer listNumber = 1;
-			for (Dimension dim : faultyDimensions) {
-				target.sendMessage(ChatColor.RED + listNumber.toString() + ". " + dim.getName());
-				listNumber++;
+			if (!target.isOp()) {
+				target.sendMessage(ChatColor.RED + "dimension warping is completely disabled right now due to "
+						+ "the following faulty dimensions: ");
+				Integer listNumber = 1;
+				for (Dimension dim : faultyDimensions) {
+					target.sendMessage(ChatColor.RED + listNumber.toString() + ". " + dim.getName());
+					listNumber++;
+				}
+			} else {
+				target.sendMessage(ChatColor.YELLOW + "dimension(s) generated with exceptions, proceed "
+						+ "with caution. faulty dimensions: ");
+				for (Dimension dim : faultyDimensions) {
+					target.sendMessage(ChatColor.YELLOW + "- " + dim.getName());
+				}
 			}
 		}
 	}

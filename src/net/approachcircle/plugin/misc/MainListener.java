@@ -1,4 +1,4 @@
-package net.approachcircle.plugin;
+package net.approachcircle.plugin.misc;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.TabCompleteEvent;
 
 import net.approachcircle.plugin.command.Maintenance;
 import net.approachcircle.plugin.command.Reports;
@@ -56,5 +57,12 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		// just keep in case
+	}
+	
+	@EventHandler
+	public void onTabComplete(TabCompleteEvent event) {
+		if (!event.isCancelled()) {
+			event.setCompletions(TabCompleter.complete(event.getBuffer()));
+		}
 	}
 }

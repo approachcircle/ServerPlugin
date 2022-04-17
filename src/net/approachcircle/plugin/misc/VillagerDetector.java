@@ -1,4 +1,4 @@
-package net.approachcircle.plugin;
+package net.approachcircle.plugin.misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

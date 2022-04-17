@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +22,7 @@ import net.approachcircle.plugin.command.SpawnOn;
 import net.approachcircle.plugin.command.TeleportAsk;
 import net.approachcircle.plugin.dimensions.DimensionPreparer;
 import net.approachcircle.plugin.dimensions.WorldSwitcher;
+import net.approachcircle.plugin.misc.MainListener;
 
 public class ServerPlugin extends JavaPlugin {
 	MainListener mainListener = new MainListener();
@@ -36,11 +38,12 @@ public class ServerPlugin extends JavaPlugin {
 		logger.info("started monitoring reports");
 		logger.info("preparing all dimensions...");
 		DimensionPreparer.prepareAllDimensions();
-		logger.info("done!");
+		logger.info("dimensions prepared!");
 	}
 	
 	public void onDisable() {
-		logger.info("all events have been deregistered, goodbye");
+		HandlerList.unregisterAll(mainListener);
+		logger.info("all events unregistered, goodbye!");
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

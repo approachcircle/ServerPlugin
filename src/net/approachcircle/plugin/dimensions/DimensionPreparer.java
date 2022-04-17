@@ -3,7 +3,7 @@ package net.approachcircle.plugin.dimensions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.approachcircle.plugin.PluginLogger;
+import net.approachcircle.plugin.misc.PluginLogger;
 
 public class DimensionPreparer {
 	private static Dimension[] dimensionArray = {
@@ -26,5 +26,9 @@ public class DimensionPreparer {
 				logger.severe("dimension switching has been disabled");
 			}
 		}
+	}
+	
+	public static Dimension[] getAllDimensions() {
+		return dimensionArray;
 	}
 }

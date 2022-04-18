@@ -19,10 +19,10 @@ public class Firework {
 	
 	public static void giveFireworks(Player target) {
 		if (!gotFireworks.contains(target)) {
-			logger.info(target.getName() + " just got 32 fireworks, they now have a 5 minute cooldown");
-			target.getInventory().addItem(new ItemStack(Material.FIREWORK_ROCKET, 32));
+			logger.info(target.getName() + " just got a stack of fireworks, they now have a 5 minute cooldown");
+			target.getInventory().addItem(new ItemStack(Material.FIREWORK_ROCKET, 64));
 			gotFireworks.add(target);
-			target.sendMessage(ChatColor.GREEN + "you have been given 32 fireworks");
+			target.sendMessage(ChatColor.GREEN + "you have been given a stack of fireworks");
 			target.sendMessage(ChatColor.YELLOW + "you now have a 5 minute cooldown before you can get any more");
 			timer(target);
 		} else {

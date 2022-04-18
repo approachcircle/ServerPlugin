@@ -13,7 +13,7 @@ commands:
    tpa:
       description: allows you to request to teleport to another player with a timeout of 15 seconds (<command> {user})
    firework:
-      description: gives you 32 fireworks with a 5 minute cooldown (<command>)
+      description: gives you a stack of fireworks with a 5 minute cooldown (<command>)
    reports:
       description: displays reports on the server since a restart/when it was last cleared. you can also send the reports to another user or reset the reports. (<command> [user|reset])
    warpto:

@@ -37,7 +37,7 @@ public class Firework {
 			public void run() {
 				gotFireworks.remove(target);
 				target.sendMessage(ChatColor.GREEN + "your firework cooldown has expired!");
-				logger.info(target + "'s firework cooldown just expired");
+				logger.info(target.getName() + "'s firework cooldown just expired");
 			}
 		}, 20*300L);
 		return task;

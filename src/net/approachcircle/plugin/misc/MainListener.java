@@ -10,8 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import net.approachcircle.plugin.anticheat.AntiSuffocate;
 import net.approachcircle.plugin.command.Maintenance;
 import net.approachcircle.plugin.command.Reports;
 import net.approachcircle.plugin.dimensions.WorldSwitcher;
@@ -29,7 +31,7 @@ public class MainListener implements Listener {
 		Player player = event.getPlayer();
 		if (Maintenance.getState()) {
 			if (player.isOp()) {
-				player.sendMessage(ChatColor.YELLOW + "warning: the server is currently in maintenance mode");
+				player.sendMessage("SP> " + ChatColor.YELLOW + "warning: the server is currently in maintenance mode");
 			} else {
 				Maintenance.turnAwayPlayer(player, true);
 				return;
@@ -37,12 +39,12 @@ public class MainListener implements Listener {
 		}
 		LocalTime time = LocalTime.now();
 		Reports.playerJoined(player, dtf.format(time));
-		player.sendMessage(ChatColor.LIGHT_PURPLE + "welcome back " + player.getName());
+		player.sendMessage("SP> " + ChatColor.LIGHT_PURPLE + "welcome back " + player.getName());
 		if (player.isOp()) {
-			player.sendMessage(ChatColor.LIGHT_PURPLE + "to view server reports, type /reports");
+			player.sendMessage("SP> " + ChatColor.LIGHT_PURPLE + "to view server reports, type /reports");
 		}
 		time = LocalTime.now();
-		player.sendMessage(ChatColor.LIGHT_PURPLE + "the server time is " + dtf.format(time));
+		player.sendMessage("SP> " + ChatColor.LIGHT_PURPLE + "the server time is " + dtf.format(time));
 		WorldSwitcher.warnFaultyDimensions(player);
 	}
 	
@@ -56,5 +58,10 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		// just keep in case
+	}
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		AntiSuffocate.checkSuffocationState(event.getPlayer());
 	}
 }

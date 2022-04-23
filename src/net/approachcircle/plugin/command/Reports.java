@@ -17,7 +17,7 @@ public class Reports {
 	
 	public static void showReports(CommandSender sender) {
 		logger.info(sender.getName() + " just viewed reports");
-		sender.sendMessage(ChatColor.YELLOW + "here are the activity reports for every"
+		sender.sendMessage("SP> " + ChatColor.YELLOW + "here are the activity reports for every"
 				+ " player: ");
 		printReports(sender);
 	}
@@ -25,7 +25,7 @@ public class Reports {
 	public static void resetReports(String time, CommandSender sender) {
 		playerActionList.clear();
 		playerActionList.add(ChatColor.AQUA + "reports reset at " + time + "\n");
-		sender.sendMessage(ChatColor.GREEN + "okay, reports have been reset");
+		sender.sendMessage("SP> " + ChatColor.GREEN + "okay, reports have been reset");
 	}
 	
 	public static void playerJoined(Player player, String time) {
@@ -38,11 +38,11 @@ public class Reports {
 	
 	public static void sendReports(CommandSender sender, Player target) {
 		logger.info(sender.getName() + " sent reports to " + target.getName());
-		target.sendMessage(ChatColor.YELLOW + sender.getName() + " has requested that you view "
+		target.sendMessage("SP> " + ChatColor.YELLOW + sender.getName() + " has requested that you view "
 				+ "the activity reports for this server");
-		target.sendMessage(ChatColor.YELLOW + "the reports are as follows:");
+		target.sendMessage("SP> " + ChatColor.YELLOW + "the reports are as follows:");
 		printReports(target);
-		sender.sendMessage(ChatColor.GREEN + "activity reports have been sent to " + target.getName());
+		sender.sendMessage("SP> " + ChatColor.GREEN + "activity reports have been sent to " + target.getName());
 		playerActionList.add(ChatColor.AQUA + sender.getName() + " sent reports to " + target.getName());
 	}
 	
@@ -50,5 +50,9 @@ public class Reports {
 		for (String action : playerActionList) {
 			target.sendMessage(action);
 		}
+	}
+	
+	public static void addOtherEvent(String event) {
+		playerActionList.add(event);
 	}
 }

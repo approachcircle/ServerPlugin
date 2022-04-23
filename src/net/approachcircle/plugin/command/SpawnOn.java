@@ -7,12 +7,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+
+import net.approachcircle.plugin.misc.PluginLogger;
+
 import org.bukkit.entity.EntityType;
 
 public class SpawnOn {
-	private static Plugin plugin = Bukkit.getPluginManager().getPlugin("ServerPlugin");
-	private static Logger logger = plugin.getLogger();
+	private static Logger logger = PluginLogger.getPluginLogger();
 	
 	public static void spawnOn(CommandSender sender, String mobName, String playerName) {
 		Player player = Bukkit.getPlayer(playerName);
@@ -20,12 +21,12 @@ public class SpawnOn {
 		try {
 			entity = (EntityType) Enum.valueOf(EntityType.class, mobName.toUpperCase());
 		} catch (IllegalArgumentException e) {
-			sender.sendMessage(ChatColor.RED + "entity of name '" + mobName + "' does not exist");
+			sender.sendMessage("SP> " + ChatColor.RED + "entity of name '" + mobName + "' does not exist");
 			return;
 		}
 		World world = player.getWorld();
 		world.spawnEntity(player.getLocation(), entity);
-		sender.sendMessage("spawned " + entity.toString() + " on " + player.getName());
+		sender.sendMessage("SP> spawned " + entity.toString() + " on " + player.getName());
 		logger.info("a " + entity.toString() + " was just spawned on " + player.getName());
 	}
 }

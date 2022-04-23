@@ -32,7 +32,7 @@ public class VillagerDetector {
     String villagerx = Integer.valueOf((int)villagerLocation.getX()).toString();
     String villagery = Integer.valueOf((int)villagerLocation.getY()).toString();
     String villagerz = Integer.valueOf((int)villagerLocation.getZ()).toString();
-    String message = ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " was killed by " + villagerKiller.getName();
+    String message = "SP> " + ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " was killed by " + villagerKiller.getName();
     Bukkit.broadcastMessage(message);
   }
   
@@ -40,7 +40,7 @@ public class VillagerDetector {
     String villagerx = Integer.valueOf((int)villagerLocation.getX()).toString();
     String villagery = Integer.valueOf((int)villagerLocation.getY()).toString();
     String villagerz = Integer.valueOf((int)villagerLocation.getZ()).toString();
-    String message = ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " has died";
+    String message = "SP> " + ChatColor.RED + "a villager at " + villagerx + " " + villagery + " " + villagerz + " has died";
     Bukkit.broadcastMessage(message);
   }
 }

@@ -13,6 +13,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.approachcircle.plugin.anticheat.AntiSuffocate;
+import net.approachcircle.plugin.anticheat.PlayerStorage;
 import net.approachcircle.plugin.command.Die;
 import net.approachcircle.plugin.command.Firework;
 import net.approachcircle.plugin.command.Maintenance;
@@ -39,6 +41,8 @@ public class ServerPlugin extends JavaPlugin {
 		logger.info("preparing all dimensions...");
 		DimensionPreparer.prepareAllDimensions();
 		logger.info("dimensions prepared!");
+		PlayerStorage.setupRepeatingReset();
+		logger.info("antisuffocate violations' player storage queue has been told to auto-reset");
 	}
 	
 	public void onDisable() {
@@ -47,7 +51,7 @@ public class ServerPlugin extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String noPerms = ChatColor.RED + "sorry, you do not have the permission to run this command";
+		String noPerms = ChatColor.RED + "SP> sorry, you do not have the permission to run this command";
 		if (label.equalsIgnoreCase("die")) {
 			Player player = (Player) sender;
 			Die.suicide(player);
@@ -65,7 +69,7 @@ public class ServerPlugin extends JavaPlugin {
 			return true;
 		} else if (label.equalsIgnoreCase("firework")) {
 			Player player = (Player) sender;
-			Firework.giveFireworks(player);
+			Firework.checkEligibility(player);
 			return true;
 		} else if (label.equalsIgnoreCase("reports")) {
 			if (!sender.isOp()) {
@@ -108,7 +112,7 @@ public class ServerPlugin extends JavaPlugin {
 			}
 			Player target = Bukkit.getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.RED + "this player does not exist");
+				sender.sendMessage("SP> " + ChatColor.RED + "this player does not exist");
 				return true;
 			}
 			WorldSwitcher.switchTo(args[1].toLowerCase(), target, sender, true);
@@ -132,10 +136,20 @@ public class ServerPlugin extends JavaPlugin {
 			}
 			Player target = Bukkit.getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.RED + "this player does not exist");
+				sender.sendMessage("SP> " + ChatColor.RED + "this player does not exist");
 				return true;
 			}
 			Mock.mockPlayer(target, args);
+		} else if (label.equalsIgnoreCase("antisuffocate")) {
+			if (!sender.isOp()) {
+				sender.sendMessage();
+				return true;
+			} else {
+				sender.sendMessage("SP> " + ChatColor.GREEN + "disabled: "
+						+ AntiSuffocate.disabled + " -> " + !AntiSuffocate.disabled);
+				AntiSuffocate.disabled = !AntiSuffocate.disabled;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -148,6 +162,6 @@ public class ServerPlugin extends JavaPlugin {
 			message += arg;
 			message += "} ";
 		}
-		sender.sendMessage(ChatColor.RED + message);
+		sender.sendMessage("SP> " + ChatColor.RED + message);
 	}
 }

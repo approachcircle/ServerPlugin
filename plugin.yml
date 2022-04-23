@@ -24,3 +24,5 @@ commands:
       description: toggles the server's maintenance mode
    mock:
       description: allows you to send a message appearing to come from another player (<command> {player} {message})
+   antisuffocate:
+      description: toggles the antisuffocate functionality (<command>)

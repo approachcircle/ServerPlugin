@@ -8,19 +8,21 @@ import org.bukkit.WorldCreator;
 public class Spongeland extends Dimension {
 	private static World spongeland = null;
 	private static Spongeland instance = new Spongeland();
-	
+
 	private static String name = "spongeland";
-	
+
 	private Spongeland() {}
-	
+
 	public static Spongeland getInstance() {
 		return instance;
 	}
-	
+
+	@Override
 	public World get() {
 		return spongeland;
 	}
-	
+
+	@Override
 	public void prepare() {
 		WorldCreator creator = new WorldCreator(name);
 		creator.generator(new SpongelandChunkGenerator());
@@ -28,7 +30,8 @@ public class Spongeland extends Dimension {
 		spongeland = Bukkit.getServer().createWorld(creator);
 		spongeland.setSpawnLocation(new Location(spongeland, 0, 81, 0));
 	}
-	
+
+	@Override
 	public String getName() {
 		return name;
 	}

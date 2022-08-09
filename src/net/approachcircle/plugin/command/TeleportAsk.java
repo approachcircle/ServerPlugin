@@ -12,18 +12,18 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
 public class TeleportAsk {
-	
+
 	/**
 	 * even though the Player instance is re-instantiated if the player logs out and back
 	 * in, that is okay in this situation, and we don't have to worry about in that much.
 	 */
-	
-	private static List<Player> requesters = new ArrayList<Player>();
-	private static List<Player> targets = new ArrayList<Player>();
+
+	private static List<Player> requesters = new ArrayList<>();
+	private static List<Player> targets = new ArrayList<>();
 	private static BukkitTask currentTask;
 	private static Plugin plugin = Bukkit.getPluginManager().getPlugin("ServerPlugin");
 	private static Logger logger = plugin.getLogger();
-	
+
 	public static void requestTeleport(Player commandSender, String targetName) {
 		if (targetName.equalsIgnoreCase("yes")) {
 			acceptTeleport(commandSender);
@@ -43,11 +43,11 @@ public class TeleportAsk {
 		}
 		sendTeleportRequest(commandSender, target);
 	}
-	
+
 	private static void acceptTeleport(Player commandSender) {
 		String senderUUID = commandSender.getUniqueId().toString();
 		Integer index = 0;
-		Boolean success = false;
+		boolean success = false;
 		for (Player target : targets) {
 			String targetUUID = target.getUniqueId().toString();
 			if (senderUUID.equalsIgnoreCase(targetUUID)) {
@@ -70,11 +70,11 @@ public class TeleportAsk {
 			commandSender.sendMessage("SP> " + ChatColor.RED + "you don't have a teleport request to accept");
 		}
 	}
-	
+
 	private static void denyTeleport(Player commandSender) {
 		String senderUUID = commandSender.getUniqueId().toString();
 		Integer index = 0;
-		Boolean success = false;
+		boolean success = false;
 		for (Player target : targets) {
 			String targetUUID = target.getUniqueId().toString();
 			if (senderUUID.equalsIgnoreCase(targetUUID)) {
@@ -93,10 +93,10 @@ public class TeleportAsk {
 		} else {
 			commandSender.sendMessage("SP> " + ChatColor.RED + "you don't have a teleport request to deny");
 		}
-		
-		
+
+
 	}
-	
+
 	private static void sendTeleportRequest(Player requester, Player target) {
 		requester.sendMessage("SP> " + ChatColor.YELLOW + "sending teleport request to " + target.getName());
 		requester.sendMessage("SP> " + ChatColor.YELLOW + "(your request will expire in about 15 seconds)");
@@ -110,7 +110,7 @@ public class TeleportAsk {
 		requester.sendMessage("SP> " + ChatColor.YELLOW + "request sent");
 		logger.info(requester.getName() + " just sent a teleport request to " + target.getName());
 	}
-	
+
 	private static BukkitTask beginTimer(Player requester, Player target) {
 		BukkitTask task = Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
 			@Override

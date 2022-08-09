@@ -1,6 +1,6 @@
 name: ServerPlugin
 main: net.approachcircle.plugin.ServerPlugin
-version: 2.0
+version: 3.0
 api-version: 1.17
 author: approachcircle
 prefix: ServerPlugin
@@ -26,3 +26,6 @@ commands:
       description: allows you to send a message appearing to come from another player (<command> {player} {message})
    antisuffocate:
       description: toggles the antisuffocate functionality (<command>)
+   busy-on:
+   busy-off:
+   forcegenerate:

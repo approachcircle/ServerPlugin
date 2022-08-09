@@ -20,12 +20,12 @@ import net.approachcircle.plugin.dimensions.WorldSwitcher;
 
 public class MainListener implements Listener {
 	private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-	
+
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
 		VillagerDetector.checkEntityType(event);
 	}
-	
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
@@ -37,6 +37,10 @@ public class MainListener implements Listener {
 				return;
 			}
 		}
+		if (BusyManager.getState()) {
+			BusyManager.turnAwayPlayer(player);
+			return;
+		}
 		LocalTime time = LocalTime.now();
 		Reports.playerJoined(player, dtf.format(time));
 		player.sendMessage("SP> " + ChatColor.LIGHT_PURPLE + "welcome back " + player.getName());
@@ -47,19 +51,19 @@ public class MainListener implements Listener {
 		player.sendMessage("SP> " + ChatColor.LIGHT_PURPLE + "the server time is " + dtf.format(time));
 		WorldSwitcher.warnFaultyDimensions(player);
 	}
-	
+
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		LocalTime time = LocalTime.now();
 		Reports.playerQuit(player, dtf.format(time));
 	}
-	
+
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		// just keep in case
 	}
-	
+
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
 		AntiSuffocate.checkSuffocationState(event.getPlayer());

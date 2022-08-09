@@ -15,18 +15,22 @@ import net.approachcircle.plugin.misc.PluginLogger;
 
 public class WorldSwitcher {
 	public static Boolean isDisabled = false;
-	public static List<Dimension> faultyDimensions = new ArrayList<Dimension>();
+	public static List<Dimension> faultyDimensions = new ArrayList<>();
 	private static Logger logger = PluginLogger.getPluginLogger();
-	
+
 	public static void switchTo(String worldName, Player target, CommandSender sender, Boolean usingSend) {
 		if (isDisabled) {
 			warnFaultyDimensions((Player) sender);
 			return;
 		}
+		if (!StaggeredDimensionPreparer.isFinished()) {
+			warnUngeneratedDimensions((Player) sender);
+			return;
+		}
 		if (
-				worldName.equalsIgnoreCase("the_nether") || 
+				worldName.equalsIgnoreCase("the_nether") ||
 				worldName.equalsIgnoreCase("the_end")
-			) {
+		) {
 			if (usingSend) {
 				sender.sendMessage("SP> " + ChatColor.RED + "you cannot send " + target.getName() + " to this dimension");
 			} else {
@@ -71,15 +75,21 @@ public class WorldSwitcher {
 		}
 		Bukkit.broadcastMessage("SP> " + ChatColor.GREEN + target.getName() + ": " + oldWorld.getName() + " -> " + worldName);
 	}
-	
+
+	private static void warnUngeneratedDimensions(Player sender) {
+		sender.sendMessage("SP> " + ChatColor.RED + "dimensions have not been generated yet");
+		sender.sendMessage(String.format("SP> " + ChatColor.RED + "the server must be empty for %s minute(s) in order for the dimensions to generate", StaggeredDimensionPreparer.timerMinutes));
+		
+	}
+
 	public static void warnFaultyDimensions(Player target) {
 		if (isDisabled) {
 			if (!target.isOp()) {
 				target.sendMessage("SP> " + ChatColor.RED + "dimension warping is completely disabled right now due to "
 						+ "the following faulty dimensions: ");
-				Integer listNumber = 1;
+				int listNumber = 1;
 				for (Dimension dim : faultyDimensions) {
-					target.sendMessage(ChatColor.RED + listNumber.toString() + ". " + dim.getName());
+					target.sendMessage(ChatColor.RED + Integer.toString(listNumber) + ". " + dim.getName());
 					listNumber++;
 				}
 			} else {

@@ -3,19 +3,22 @@ package net.approachcircle.plugin.dimensions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.approachcircle.plugin.misc.BusyManager;
 import net.approachcircle.plugin.misc.PluginLogger;
 
 public class DimensionPreparer {
-	private static Dimension[] dimensionArray = {
+	public final static Dimension[] dimensions = {
 			Wasteland.getInstance(),
 			Spongeland.getInstance(),
 			Blackstoneland.getInstance()
 	};
-	
+
 	private static Logger logger = PluginLogger.getPluginLogger();
-	
+
 	public static void prepareAllDimensions() {
-		for (Dimension dimension : dimensionArray) {
+		BusyManager.setBusy("preparing dimensions");
+		logger.warning("---===server may become unresponsive, don't panic!===---");
+		for (Dimension dimension : dimensions) {
 			try {
 				logger.info("preparing dimension: " + dimension.getName());
 				dimension.prepare();
@@ -26,9 +29,7 @@ public class DimensionPreparer {
 				logger.severe("dimension switching has been disabled");
 			}
 		}
-	}
-	
-	public static Dimension[] getAllDimensions() {
-		return dimensionArray;
+		logger.info("finished preparing dimensions");
+		BusyManager.notBusy();
 	}
 }

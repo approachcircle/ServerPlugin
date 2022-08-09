@@ -13,45 +13,45 @@ public class BlackstonelandChunkGenerator extends ChunkGenerator {
 	public boolean shouldGenerateNoise() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateSurface() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateBedrock() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateCaves() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateDecorations() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateMobs() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean shouldGenerateStructures() {
 		return true;
 	}
-	
+
 	@Override
 	public void generateSurface(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
 		SimplexOctaveGenerator generator = new SimplexOctaveGenerator(new Random(worldInfo.getSeed()), 6);
 		generator.setScale(0.009D);
-	
-		Integer worldX = chunkX * 16;
-		Integer worldZ = chunkZ * 16;
-	
+
+		int worldX = chunkX * 16;
+		int worldZ = chunkZ * 16;
+
 		for (Integer x = 0; x < 16; x++) {
 			for (Integer z = 0; z < 16; z ++) {
 				Double noise = generator.noise(worldX + x, worldZ + z, 1, 1, true);
@@ -66,7 +66,7 @@ public class BlackstonelandChunkGenerator extends ChunkGenerator {
 			}
 		}
 	}
-	
+
 	@Override
     public void generateBedrock(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
         if (chunkData.getMinHeight() == worldInfo.getMinHeight()) {

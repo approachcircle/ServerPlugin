@@ -20,30 +20,32 @@ public class AntiSuffocate {
 	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 	public static Boolean disabled = false;
 	private static Logger logger = PluginLogger.getPluginLogger();
-	
+
 	public static void checkSuffocationState(Player target) {
 		if (disabled) {
 			return;
 		}
-		Boolean isOperator = false;
-		if (target.isOp()) {
-			isOperator = true;
-		}
 		Location playerEyeLocation = target.getEyeLocation();
 		Block blockPlayerIn = playerEyeLocation.getBlock();
-		Boolean noEmptySpace = false;
-		String[] allowedBlockKeywords = {"STAIR",
+		boolean noEmptySpace = false;
+
+		String[] allowedBlockKeywords = {
+				"STAIR",
 				"DOOR",
 				"LADDER",
-				"PANE", 
-				"PISTON", 
-				"SLAB", 
-				"CARPET", 
-				"FENCE", 
+				"PANE",
+				"PISTON",
+				"SLAB",
+				"CARPET",
+				"FENCE",
 				"GATE",
-				"LANTERN"
+				"LANTERN",
+				"IRON_BARS",
+				"BAMBOO",
+				"DRIPSTONE",
+				"CHAIN"
 		};
-		
+
 		if (blockPlayerIn.isLiquid()) {
 			return;
 		} else if (blockPlayerIn.getType() == Material.AIR) {
@@ -63,7 +65,7 @@ public class AntiSuffocate {
 				return;
 			}
 		}
-		if (isOperator) {
+		if (target.isOp()) {
 			target.sendMessage("SP> " + ChatColor.RED + "you are in an illegal block!");
 			return;
 		}
@@ -71,43 +73,44 @@ public class AntiSuffocate {
 		if (newLocation == null) {
 			noEmptySpace = true;
 		}
-		PlayerStorage.playerViolated(target);
+		// PlayerStorage.playerViolated(target);
 		if (!noEmptySpace) {
 			target.teleport(newLocation);
 		} else {
 			Integer airX = newLocation.getBlockX();
 			Integer airY = newLocation.getBlockY() - 1;
 			Integer airZ = newLocation.getBlockZ();
-			if (blockPlayerIn.getType() != Material.BEDROCK) {
+			if (blockPlayerIn.getType() != Material.BEDROCK && blockPlayerIn.getType() != Material.END_PORTAL_FRAME) {
 				(new Location(target.getWorld(), airX, airY, airZ)).getBlock().breakNaturally();
 				blockPlayerIn.breakNaturally();
 			}
 		}
-		if (PlayerStorage.playerShouldBeKicked(target)) {
-			target.kickPlayer(ChatColor.DARK_GREEN + "==--SP--==\n" + ChatColor.RED + "you were kicked because you kept "
-					+ "suffocating in blocks that you "
-				+ "should not be able to able to suffocate in naturally. please refrain from "
-				+ "doing this");
-		}
+//		if (PlayerStorage.playerShouldBeKicked(target)) {
+//			target.kickPlayer(ChatColor.DARK_GREEN + "==--SP--==\n" + ChatColor.RED + "you were kicked because you kept "
+//					+ "suffocating in blocks that you "
+//				+ "should not be able to able to suffocate in naturally. please refrain from "
+//				+ "doing this\n" + ChatColor.RESET + "#" + ChatColor.GRAY +
+//				PlayerStorage.getUUIDOccurrences(target));
+//		}
 		target.sendMessage("SP> " + ChatColor.RED + "refrain from suffocating in blocks that you "
 				+ "shouldn't be able to suffocate in");
 		LocalTime time = LocalTime.now();
-		Reports.addOtherEvent(ChatColor.DARK_RED + target.getName() + " was flagged for illegal suffocation "
-				+ "at " + dtf.format(time));
+		Reports.addOtherEvent(String.format(ChatColor.DARK_RED + "%s was flagged for illegal suffocation "
+				+ "at %s in block '%s'", target.getName(), dtf.format(time), blockPlayerIn.getType().toString()));
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.isOp()) {
-				player.sendMessage("SP> " + ChatColor.DARK_RED + target.getName() + " was flagged "
-						+ "for illegal suffocation at "
-						+ playerEyeLocation.getBlockX() + " " + playerEyeLocation.getBlockY() + 
-						" " + playerEyeLocation.getBlockZ() + " in " + target.getWorld().getName());
+				player.sendMessage(String.format("SP> " + ChatColor.DARK_RED + "%s was flagged for illegal "
+						+ "suffocation at %d %d %d in world '%s' in block '%s'", target.getName(),
+						playerEyeLocation.getBlockX(), playerEyeLocation.getBlockY(), playerEyeLocation.getBlockZ(),
+						target.getWorld().getName(), blockPlayerIn.getType().toString()));
 			}
 		}
-		logger.warning(ChatColor.DARK_RED + target.getName() + " was flagged "
-						+ "for illegal suffocation at "
-						+ playerEyeLocation.getBlockX() + " " + playerEyeLocation.getBlockY() + 
-						" " + playerEyeLocation.getBlockZ() + " in " + target.getWorld().getName());
+		logger.warning(String.format(ChatColor.DARK_RED + "%s was flagged for illegal "
+				+ "suffocation at %d %d %d in world '%s' in block '%s'", target.getName(),
+				playerEyeLocation.getBlockX(), playerEyeLocation.getBlockY(), playerEyeLocation.getBlockZ(),
+				target.getWorld().getName(), blockPlayerIn.getType().toString()));
 	}
-	
+
 	private static Location checkEmptySpace(Location eyeLocation, World world) {
 		Integer initialY = eyeLocation.getBlockY();
 		Integer initialX = eyeLocation.getBlockX();

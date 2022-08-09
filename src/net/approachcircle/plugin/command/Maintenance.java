@@ -12,7 +12,7 @@ public class Maintenance {
 	private static Plugin plugin = Bukkit.getPluginManager().getPlugin("ServerPlugin");
 	private static Logger logger = plugin.getLogger();
 	private static Boolean maintenanceMode = false;
-	
+
 	public static void toggleMaintenance(CommandSender sender) {
 		sender.sendMessage("SP> " + ChatColor.GREEN + "maintenance mode: " + maintenanceMode + " -> " + !maintenanceMode);
 		maintenanceMode = !maintenanceMode;
@@ -22,11 +22,11 @@ public class Maintenance {
 			}
 		}
 	}
-	
+
 	public static void turnAwayPlayer(Player player, Boolean triedToJoin) {
 		player.kickPlayer(
 				ChatColor.DARK_GREEN + "==--SP--==\n" + ChatColor.RESET +
-				ChatColor.MAGIC + "a" + ChatColor.RESET + 
+				ChatColor.MAGIC + "a" + ChatColor.RESET +
 				ChatColor.RED + "the server is currently in maintenance mode" +
 				ChatColor.RESET + ChatColor.MAGIC + "a" +
 				ChatColor.RESET + "\n" + ChatColor.DARK_AQUA +
@@ -36,7 +36,7 @@ public class Maintenance {
 				+ "any reason\n" + ChatColor.BLUE + "either join back later, "
 				+ "or message me on discord"
 		);
-		
+
 		if (triedToJoin) {
 			for (Player curPlayer : Bukkit.getOnlinePlayers()) {
 				if (curPlayer.isOp()) {
@@ -46,7 +46,7 @@ public class Maintenance {
 			logger.info(player.getName() + " just tried to join");
 		}
 	}
-	
+
 	public static Boolean getState() {
 		return maintenanceMode;
 	}

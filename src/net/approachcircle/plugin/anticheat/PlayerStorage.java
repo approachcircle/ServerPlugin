@@ -31,6 +31,16 @@ public class PlayerStorage {
 		}
 	}
 	
+	public static Integer getUUIDOccurrences(Player player) {
+		Integer violationCount = 0;
+		for (UUID ID : playerIDs) {
+			if (player.getUniqueId().equals(ID)) {
+				violationCount++;
+			}
+		}
+		return violationCount;
+	}
+	
 	public static BukkitTask setupRepeatingReset() {
 		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("ServerPlugin");
 		BukkitTask task = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
